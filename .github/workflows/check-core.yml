@@ -152,7 +152,7 @@ jobs:
           esp_idf_version: v5.5.3
           target: esp32c3
           command: >-
-            (python3 -c 'import tomllib' 2>/dev/null || python3 -m pip install --quiet tomli==2.2.1) &&
+            (python3 -c "import tomllib" 2>/dev/null || python3 -m pip install --quiet tomli==2.2.1) &&
             ./coopa-sdk/bin/coopa --game game check --card --fonts fonts --out out
 
       - name: 上传结果
