@@ -1,0 +1,164 @@
+# Coopa 官方检查(可复用):拉开发者仓库的一个 commit,用最新的 Coopa SDK 检查。
+# coopa-store 的 check.yml(官网触发)和游戏模板的 selfcheck.yml(开发者自查)都调它,两边结果一样。
+# 只用公开 SDK,不用任何密钥。游戏代码是别人写的:任务只有读权限,拉仓库不留凭据,inputs 只经 env 进 shell;
+# 卡上版要的字库由不跑游戏代码的 fonts 任务生成(网页版任务跑过游戏代码,它的文件不可信)。
+name: Coopa 检查(核心)
+
+on:
+  workflow_call:
+    inputs:
+      repo:
+        description: 游戏仓库 owner/name
+        type: string
+        required: true
+      ref:
+        description: 40 位 commit
+        type: string
+        required: true
+      minutes:
+        description: 乱按几分钟(模拟时间)
+        type: string
+        default: "5"
+
+permissions:
+  contents: read
+
+env:
+  SDK_URL: https://github.com/coopa-store-dev/coopa-sdk/releases/latest/download
+
+jobs:
+  fonts:
+    name: 字库(只读 coopa.toml 和 *_texts.h,不跑游戏的代码)
+    runs-on: ubuntu-latest
+    container: emscripten/emsdk:6.0.11
+    timeout-minutes: 15
+    steps:
+      - name: 检查参数
+        shell: bash
+        env:
+          REPO: ${{ inputs.repo }}
+          REF: ${{ inputs.ref }}
+        run: |
+          [[ "$REPO" =~ ^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$ ]] || { echo "::error::repo 要是 owner/name:$REPO"; exit 1; }
+          [[ "$REF" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::ref 要是 40 位 commit:$REF"; exit 1; }
+
+      - name: 拉游戏仓库
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: ${{ inputs.repo }}
+          ref: ${{ inputs.ref }}
+          path: game
+          persist-credentials: false
+
+      - name: 装 Coopa SDK
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/coopa-sdk.tar.gz "$SDK_URL/coopa-sdk.tar.gz"
+          curl -fsSL -o /tmp/coopa-sdk.tar.gz.sha256 "$SDK_URL/coopa-sdk.tar.gz.sha256"
+          (cd /tmp && sha256sum -c coopa-sdk.tar.gz.sha256)
+          tar -xzf /tmp/coopa-sdk.tar.gz -C /opt
+
+      - name: 生成字库
+        shell: bash
+        run: /opt/coopa-sdk/bin/coopa --game game _fonts --out "$GITHUB_WORKSPACE/fonts"
+
+      - name: 上传字库(卡上版用)
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: fonts
+          path: fonts
+          if-no-files-found: error
+
+  web:
+    name: 网页版(开机、截图、乱按、存档)
+    runs-on: ubuntu-latest
+    container: emscripten/emsdk:6.0.11
+    timeout-minutes: 30
+    steps:
+      - name: 检查参数
+        shell: bash
+        env:
+          REPO: ${{ inputs.repo }}
+          REF: ${{ inputs.ref }}
+          MINUTES: ${{ inputs.minutes }}
+        run: |
+          [[ "$REPO" =~ ^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$ ]] || { echo "::error::repo 要是 owner/name:$REPO"; exit 1; }
+          [[ "$REF" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::ref 要是 40 位 commit:$REF"; exit 1; }
+          [[ "$MINUTES" =~ ^[0-9]+(\.[0-9]+)?$ ]] || { echo "::error::minutes 要是数字:$MINUTES"; exit 1; }
+
+      - name: 拉游戏仓库
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: ${{ inputs.repo }}
+          ref: ${{ inputs.ref }}
+          path: game
+          persist-credentials: false
+
+      - name: 装 Coopa SDK
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/coopa-sdk.tar.gz "$SDK_URL/coopa-sdk.tar.gz"
+          curl -fsSL -o /tmp/coopa-sdk.tar.gz.sha256 "$SDK_URL/coopa-sdk.tar.gz.sha256"
+          (cd /tmp && sha256sum -c coopa-sdk.tar.gz.sha256)
+          tar -xzf /tmp/coopa-sdk.tar.gz -C /opt
+          /opt/coopa-sdk/bin/coopa version
+
+      - name: 检查
+        shell: bash
+        working-directory: game
+        env:
+          MINUTES: ${{ inputs.minutes }}
+        run: /opt/coopa-sdk/bin/coopa check --web --minutes "$MINUTES" --out "$GITHUB_WORKSPACE/out"
+
+      - name: 上传结果(截图、日志、网页版)
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: result-web
+          path: out
+          if-no-files-found: ignore
+
+  card:
+    name: 卡上版(固件大小、禁用符号)
+    needs: [fonts, web]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: 拉游戏仓库
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: ${{ inputs.repo }}
+          ref: ${{ inputs.ref }}
+          path: game
+          persist-credentials: false
+
+      - name: 取字库(字库任务生成的,不是跑过游戏代码的网页版任务)
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: fonts
+          path: fonts
+
+      - name: 装 Coopa SDK
+        shell: bash
+        run: |
+          curl -fsSL -o coopa-sdk.tar.gz "$SDK_URL/coopa-sdk.tar.gz"
+          curl -fsSL -o coopa-sdk.tar.gz.sha256 "$SDK_URL/coopa-sdk.tar.gz.sha256"
+          sha256sum -c coopa-sdk.tar.gz.sha256
+          tar -xzf coopa-sdk.tar.gz
+
+      - name: 检查(ESP-IDF v5.5.3)
+        uses: espressif/esp-idf-ci-action@9d38657f3d789ca759b2b37aaf5ceffbc42c4f0d # v1
+        with:
+          esp_idf_version: v5.5.3
+          target: esp32c3
+          command: >-
+            (python3 -c 'import tomllib' 2>/dev/null || python3 -m pip install --quiet tomli==2.2.1) &&
+            ./coopa-sdk/bin/coopa --game game check --card --fonts fonts --out out
+
+      - name: 上传结果
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: result-card
+          path: out
+          if-no-files-found: ignore

@@ -1,0 +1,27 @@
+# 官方检查。官网(阶段 3)用 GitHub App 触发;现在可以手动:
+#   gh workflow run check.yml -R coopa-store-dev/coopa-store -f repo=owner/name -f ref=<40 位 commit>
+# 现在只能查公开仓库。私有仓库要的短期令牌和结果回传(HMAC)在阶段 3 跟官网一起做。
+name: Coopa 检查
+run-name: 检查 ${{ inputs.repo }}@${{ inputs.ref }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 游戏仓库 owner/name
+        type: string
+        required: true
+      ref:
+        description: 40 位 commit
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    uses: coopa-store-dev/coopa-store/.github/workflows/check-core.yml@main
+    with:
+      repo: ${{ inputs.repo }}
+      ref: ${{ inputs.ref }}
