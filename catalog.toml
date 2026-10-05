@@ -98,13 +98,13 @@ icons = ["icons/demo_0.png", "icons/demo_1.png"]
 [[game]]
 no = 7
 id = "pai"
-author = "测试"
+author = "notwin"
 blurb = "外部仓库测试"
 repo = "https://github.com/coopa-store-dev/coopa-test-pai"
 commit = "ed618f54c4efa88b3091786d2e006c2d1556f2ef"
 price = 0
 starter = false
-listed = false
+listed = true
 stars = [0, 0]
 size_kb = 8
 tags = ["new"]
