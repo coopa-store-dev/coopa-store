@@ -124,3 +124,18 @@ stars = [0, 0]
 size_kb = 9
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 9
+id = "guangchangwu"
+author = "娘子蚊子狗"
+blurb = "跟着广场舞奶奶的节拍，音符落到判定线时按"
+repo = "https://github.com/oldcoopa-crypto/guangchangwu"
+commit = "febdfc02ea913ec5b688f6d9d2e0eb51beac1a11"
+price = 10
+starter = false
+listed = true
+stars = [2, 2, 2, 2, 2, 2, 2, 2]
+size_kb = 13
+tags = ["new"]
+icons = []
