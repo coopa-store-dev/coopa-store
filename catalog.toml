@@ -109,3 +109,18 @@ stars = [0, 0]
 size_kb = 8
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 8
+id = "ceshi"
+author = "notwin"
+blurb = "开发者流程自测"
+repo = "https://github.com/notwin/coopa-ceshi"
+commit = "543d67489a8a1f022ae8f526415c740d1fd8d374"
+price = 0
+starter = false
+listed = true
+stars = [0, 0]
+size_kb = 9
+tags = ["new"]
+icons = []
