@@ -1,0 +1,96 @@
+# Coopa Store 商店目录。kr2 的构建服务每分钟拉一次 main 上的这个文件:生成卡上的商店目录、按组合编固件。
+# 官网(app.xiaokuba.com)审核通过、下架、退回版本时自动改它;平时不要手改。
+# [[game]] 的顺序 = 开机 init 顺序和菜单顺序。条目永不删除:下架只改 listed = false。
+# repo = "local:…" 是外壳自带的游戏(源码在外壳里);"https://github.com/…" 是开发者的仓库,commit 是审核通过的那个。
+# tags:"pick" = 店主推荐,"new" = 新上架。icons:0..2 个 16×16 PNG,路径相对本文件所在目录。
+version = 1
+
+[[game]]
+no = 1
+id = "granny"
+author = "店主"
+blurb = "奶奶用拖鞋揍库巴"
+repo = "local:games/granny"
+commit = ""
+price = 15
+starter = true
+listed = true
+stars = [2, 2, 2, 2, 4, 3]
+size_kb = 0
+tags = ["pick"]
+icons = ["icons/granny_0.png", "icons/granny_1.png"]
+
+[[game]]
+no = 2
+id = "rpg"
+author = "店主"
+blurb = "库巴的大冒险"
+repo = "local:games/rpg"
+commit = ""
+price = 15
+starter = true
+listed = true
+stars = [2, 5, 2, 5]
+size_kb = 0
+tags = []
+icons = ["icons/rpg_0.png", "icons/rpg_1.png"]
+
+[[game]]
+no = 3
+id = "card"
+author = "店主"
+blurb = "用拖鞋打怪的卡牌冒险"
+repo = "local:games/card"
+commit = ""
+price = 15
+starter = true
+listed = true
+stars = [2, 5, 3, 4]
+size_kb = 0
+tags = ["pick"]
+icons = ["icons/card_0.png", "icons/card_1.png"]
+
+[[game]]
+no = 4
+id = "slg"
+author = "店主"
+blurb = "抢下街区的三个基地"
+repo = "local:games/slg"
+commit = ""
+price = 15
+starter = true
+listed = true
+stars = [5, 3]
+size_kb = 0
+tags = []
+icons = ["icons/slg_0.png", "icons/slg_1.png"]
+
+[[game]]
+no = 5
+id = "farm"
+author = "店主"
+blurb = "帮奶奶开饭馆"
+repo = "local:games/farm"
+commit = ""
+price = 15
+starter = true
+listed = true
+stars = [2, 2, 3, 5]
+size_kb = 0
+tags = []
+icons = ["icons/farm_0.png", "icons/farm_1.png"]
+
+[[game]]
+no = 6
+id = "demo"
+author = "店主"
+blurb = "库巴冒头就拍它,别拍到猫"
+repo = "local:games/demo"
+commit = ""
+price = 10
+starter = false
+listed = true
+stars = [3, 5]
+size_kb = 0
+tags = ["new"]
+icons = ["icons/demo_0.png", "icons/demo_1.png"]

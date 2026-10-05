@@ -15,4 +15,4 @@ gh workflow run check.yml -R coopa-store-dev/coopa-store -f repo=OWNER/NAME -f r
 
 Results (JSON, screenshots, the playable web build) are in the run's artifacts. Only public game repositories can be checked for now.
 
-The store catalog (`catalog.toml`) moves here later.
+The store catalog is `catalog.toml` (icons in `icons/`). The website updates it when a game is approved, delisted or reverted; the build service pulls it every minute and cards see it after refreshing the catalog. Do not edit it by hand.

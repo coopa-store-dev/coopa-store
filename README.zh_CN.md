@@ -15,4 +15,4 @@ gh workflow run check.yml -R coopa-store-dev/coopa-store -f repo=OWNER/NAME -f r
 
 结果(JSON、截图、能玩的网页版)在这次运行的 Artifacts 里。现在只能查公开的游戏仓库。
 
-商店目录(`catalog.toml`)以后搬到这里。
+商店目录在 `catalog.toml`(图标在 `icons/`)。官网审核通过、下架、退回版本时自动改它,构建服务每分钟拉一次,卡上「刷新目录」就能看到。不要手改。
