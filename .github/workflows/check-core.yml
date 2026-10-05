@@ -2,6 +2,8 @@
 # coopa-store 的 check.yml(官网触发)和游戏模板的 selfcheck.yml(开发者自查)都调它,两边结果一样。
 # 只用公开 SDK,不用任何密钥。游戏代码是别人写的:任务只有读权限,拉仓库不留凭据,inputs 只经 env 进 shell;
 # 卡上版要的字库由不跑游戏代码的 fonts 任务生成(网页版任务跑过游戏代码,它的文件不可信)。
+# 官方组织 coopa-store-dev 下的仓库(五款老游戏,写在新规矩之前)带 --legacy:可以用自己的 id 和旧的存档接口、
+# 不卡 384 KB。别人的仓库进不了这个组织;inputs.repo 只能是 owner/name,冒充不了。
 name: Coopa 检查(核心)
 
 on:
@@ -60,7 +62,9 @@ jobs:
 
       - name: 生成字库
         shell: bash
-        run: /opt/coopa-sdk/bin/coopa --game game _fonts --out "$GITHUB_WORKSPACE/fonts"
+        env:
+          LEGACY: ${{ startsWith(inputs.repo, 'coopa-store-dev/') && '--legacy' || '' }}
+        run: /opt/coopa-sdk/bin/coopa --game game _fonts --out "$GITHUB_WORKSPACE/fonts" ${LEGACY:+"$LEGACY"}
 
       - name: 上传字库(卡上版用)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -108,7 +112,8 @@ jobs:
         working-directory: game
         env:
           MINUTES: ${{ inputs.minutes }}
-        run: /opt/coopa-sdk/bin/coopa check --web --minutes "$MINUTES" --out "$GITHUB_WORKSPACE/out"
+          LEGACY: ${{ startsWith(inputs.repo, 'coopa-store-dev/') && '--legacy' || '' }}
+        run: /opt/coopa-sdk/bin/coopa check --web --minutes "$MINUTES" --out "$GITHUB_WORKSPACE/out" ${LEGACY:+"$LEGACY"}
 
       - name: 上传结果(截图、日志、网页版)
         if: always()
@@ -154,6 +159,7 @@ jobs:
           command: >-
             (python3 -c "import tomllib" 2>/dev/null || python3 -m pip install --quiet tomli==2.2.1) &&
             ./coopa-sdk/bin/coopa --game game check --card --fonts fonts --out out
+            ${{ startsWith(inputs.repo, 'coopa-store-dev/') && '--legacy' || '' }}
 
       - name: 上传结果
         if: always()
