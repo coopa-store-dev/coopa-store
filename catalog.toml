@@ -16,7 +16,7 @@ price = 15
 starter = true
 listed = true
 stars = [2, 2, 2, 2, 4, 3]
-size_kb = 0
+size_kb = 477
 tags = ["pick"]
 icons = ["icons/granny_0.png", "icons/granny_1.png"]
 
@@ -31,7 +31,7 @@ price = 15
 starter = true
 listed = true
 stars = [2, 5, 2, 5]
-size_kb = 0
+size_kb = 204
 tags = []
 icons = ["icons/rpg_0.png", "icons/rpg_1.png"]
 
@@ -46,7 +46,7 @@ price = 15
 starter = true
 listed = true
 stars = [2, 5, 3, 4]
-size_kb = 0
+size_kb = 216
 tags = ["pick"]
 icons = ["icons/card_0.png", "icons/card_1.png"]
 
@@ -61,7 +61,7 @@ price = 15
 starter = true
 listed = true
 stars = [5, 3]
-size_kb = 0
+size_kb = 52
 tags = []
 icons = ["icons/slg_0.png", "icons/slg_1.png"]
 
@@ -76,7 +76,7 @@ price = 15
 starter = true
 listed = true
 stars = [2, 2, 3, 5]
-size_kb = 0
+size_kb = 94
 tags = []
 icons = ["icons/farm_0.png", "icons/farm_1.png"]
 
@@ -91,7 +91,7 @@ price = 10
 starter = false
 listed = true
 stars = [3, 5]
-size_kb = 0
+size_kb = 4
 tags = ["new"]
 icons = ["icons/demo_0.png", "icons/demo_1.png"]
 
