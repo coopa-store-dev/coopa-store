@@ -154,3 +154,18 @@ stars = [2, 3, 4]
 size_kb = 77
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 11
+id = "bomb"
+author = "notwin"
+blurb = "炸弹传来传去，谁炸谁输"
+repo = "https://github.com/coopa-store-dev/coopa-bomb"
+commit = "625e8b60eefa5b619e03b87304c9a0a89fa2a564"
+price = 10
+starter = false
+listed = true
+stars = [2, 3, 4]
+size_kb = 51
+tags = ["new"]
+icons = []
