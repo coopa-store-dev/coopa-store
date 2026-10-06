@@ -143,7 +143,7 @@ icons = []
 [[game]]
 no = 10
 id = "tactics"
-author = "notwin"
+author = "库巴老爸"
 blurb = "两张卡面对面下战棋"
 repo = "https://github.com/coopa-store-dev/coopa-tactics"
 commit = "b30fe34fea9e586d47f8a11954fefe100069ea23"
