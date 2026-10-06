@@ -8,7 +8,7 @@ version = 1
 [[game]]
 no = 1
 id = "granny"
-author = "店主"
+author = "库巴老爸"
 blurb = "奶奶用拖鞋揍库巴"
 repo = "https://github.com/coopa-store-dev/coopa-granny"
 commit = "793ef9fe349bce29a1ed077a8970d8d4067b10d6"
@@ -23,7 +23,7 @@ icons = ["icons/granny_0.png", "icons/granny_1.png"]
 [[game]]
 no = 2
 id = "rpg"
-author = "店主"
+author = "库巴老爸"
 blurb = "库巴的大冒险"
 repo = "https://github.com/coopa-store-dev/coopa-rpg"
 commit = "d7c9cfeeec415c8ee1905910df0d28296e1a135e"
@@ -38,7 +38,7 @@ icons = ["icons/rpg_0.png", "icons/rpg_1.png"]
 [[game]]
 no = 3
 id = "card"
-author = "店主"
+author = "库巴老爸"
 blurb = "用拖鞋打怪的卡牌冒险"
 repo = "https://github.com/coopa-store-dev/coopa-card"
 commit = "9d0b4db7ee6717003914d19935b17ef5db6832d9"
@@ -53,7 +53,7 @@ icons = ["icons/card_0.png", "icons/card_1.png"]
 [[game]]
 no = 4
 id = "slg"
-author = "店主"
+author = "库巴老爸"
 blurb = "抢下街区的三个基地"
 repo = "https://github.com/coopa-store-dev/coopa-slg"
 commit = "dd213d46e425460ccbd1ad6e2dfaef52440b2bad"
@@ -68,7 +68,7 @@ icons = ["icons/slg_0.png", "icons/slg_1.png"]
 [[game]]
 no = 5
 id = "farm"
-author = "店主"
+author = "库巴老爸"
 blurb = "帮奶奶开饭馆"
 repo = "https://github.com/coopa-store-dev/coopa-farm"
 commit = "8fb6e645886975f622d6cf78d0af785bddffe36e"
@@ -83,7 +83,7 @@ icons = ["icons/farm_0.png", "icons/farm_1.png"]
 [[game]]
 no = 6
 id = "demo"
-author = "店主"
+author = "库巴老爸"
 blurb = "库巴冒头就拍它,别拍到猫"
 repo = "local:games/demo"
 commit = ""
