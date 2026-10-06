@@ -139,3 +139,18 @@ stars = [2, 2, 2, 2, 2, 2, 2, 2]
 size_kb = 13
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 10
+id = "tactics"
+author = "notwin"
+blurb = "两张卡面对面下战棋"
+repo = "https://github.com/coopa-store-dev/coopa-tactics"
+commit = "b30fe34fea9e586d47f8a11954fefe100069ea23"
+price = 15
+starter = false
+listed = true
+stars = [2, 3, 4]
+size_kb = 77
+tags = ["new"]
+icons = []
