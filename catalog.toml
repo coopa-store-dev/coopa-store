@@ -169,3 +169,18 @@ stars = [2, 3, 4]
 size_kb = 244
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 12
+id = "slipperworks"
+author = "娘子蚊子狗"
+blurb = "库巴给全家做拖鞋——丢鞋材、合成大鞋。"
+repo = "https://github.com/oldcoopa-crypto/slipperworks"
+commit = "ba4df03437024295271637e661e46ac1ea322ff8"
+price = 10
+starter = false
+listed = true
+stars = [2, 2, 2, 2, 2, 2, 2, 2]
+size_kb = 369
+tags = ["new"]
+icons = []
