@@ -199,3 +199,18 @@ stars = [2, 3, 4]
 size_kb = 380
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 14
+id = "morph"
+author = "库巴老爸"
+blurb = "两人联机闯四关,吞怪变身打魔王"
+repo = "https://github.com/coopa-store-dev/coopa-morph"
+commit = "4f34926071229596aca818add1ed3e159e896584"
+price = 10
+starter = false
+listed = true
+stars = [2, 2, 2, 2, 2, 2]
+size_kb = 419
+tags = ["new"]
+icons = []
