@@ -184,3 +184,18 @@ stars = [2, 2, 2, 2, 2, 2, 2, 2]
 size_kb = 369
 tags = ["new"]
 icons = []
+
+[[game]]
+no = 13
+id = "fight"
+author = "库巴老爸"
+blurb = "三个键的格斗，打中接大招"
+repo = "https://github.com/coopa-store-dev/coopa-fight"
+commit = "5e6f39a060a4207afe80c73fb932388275980d63"
+price = 10
+starter = false
+listed = true
+stars = [2, 3, 4]
+size_kb = 266
+tags = ["new"]
+icons = []
